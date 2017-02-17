@@ -87,6 +87,10 @@ static NSString *const kCellIdentifier = @"MonthData";
         [self.weatherTableView reloadData];
         [self.weatherTableView setHidden:NO];
         [self.activityIndicator stopAnimating];
+        if (![self.searchController.searchBar.text isEqualToString:@""]) {
+        //if there where search before updates serch info
+            [self.searchController.searchBar becomeFirstResponder];
+        }
         [self.pickerView setUserInteractionEnabled:YES];
     });
 }
@@ -147,6 +151,8 @@ static NSString *const kCellIdentifier = @"MonthData";
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     // This method is triggered whenever the user makes a change to the picker selection.
     // The parameter named row and component represents what was selected.
+    //if there where search before updates serch info
+    [self.searchController.searchBar resignFirstResponder];
     NSString *placeName = [self.dict valueForKey:self.pickerData[row]];
     NSString *pathToDataURL = [NSString stringWithFormat:@"http://www.metoffice.gov.uk/pub/data/weather/uk/climate/stationdata/%@.txt", placeName];
     
@@ -206,10 +212,11 @@ static NSString *const kCellIdentifier = @"MonthData";
     [self.weatherTableView reloadData];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Calculation number of rows in our tableView
-    return (tableView.frame.size.height / 13);
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    // Calculation number of rows in our tableView
+//    
+//    return (tableView.frame.size.height / 13);
+//}
 
 - (void)enableActionsWStopIndicator {
     [self.activityIndicator stopAnimating];
