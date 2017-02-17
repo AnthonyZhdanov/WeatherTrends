@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WTConstants.h"
 
 @interface WTViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchResultsUpdating>
 

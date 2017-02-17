@@ -12,7 +12,7 @@
 @interface WTLocalData : NSObject
 
 - (void)parseData:(NSData *)weatherData;
-- (NSMutableArray *)weatherStationData;
+- (NSArray *)weatherStationData;
 - (NSDictionary *)getListOfStations;
 
 @end

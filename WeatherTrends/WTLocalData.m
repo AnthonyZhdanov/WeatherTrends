@@ -7,7 +7,6 @@
 //
 
 #import "WTLocalData.h"
-#import "WTConstants.h"
 
 @interface WTLocalData () {
     NSMutableArray *stationWeatherData;
@@ -18,49 +17,49 @@
 
 @implementation WTLocalData
 
-- (NSMutableArray *)weatherStationData {
-    return stationWeatherData;
+- (NSArray *)weatherStationData {
+    NSArray *allDataFromStations = stationWeatherData;
+    return allDataFromStations;
 }
 
 - (NSDictionary *)getListOfStations {
-    NSDictionary *stationsList;
-    stationsList = @{@"Aberporth" : Aberporth,
-                     @"Armagh" : Armagh,
-                     @"Ballypatrick Forest" : BallypatrickForest,
-                     @"Bradford" : Bradford,
-                     @"Braemar" : Braemar,
-                     @"Camborne" : Camborne,
-                     @"Cambridge NIAB" : CambridgeNIAB,
-                     @"Bute Park" : CardiffButePark,
-                     @"Chivenor" : Chivenor,
-                     @"Cwmystwyth" : Cwmystwyth,
-                     @"Dunstaffnage" : Dunstaffnage,
-                     @"Durham" : Durham,
-                     @"Eastbourne" : Eastbourne,
-                     @"Eskdalemuir" : Eskdalemuir,
-                     @"Heathrow" : Heathrow,
-                     @"Hurn" : Hurn,
-                     @"Lerwick" : Lerwick,
-                     @"Leuchars" : Leuchars,
-                     @"Lowestoft" : Lowestoft,
-                     @"Manston" : Manston,
-                     @"Nairn" : Nairn,
-                     @"Newton Rigg" : NewtonRigg,
-                     @"Oxford" : Oxford,
-                     @"Paisley" : Paisley,
-                     @"Ringway" : Ringway,
-                     @"Ross-on-Wye" : RossonWye,
-                     @"Shawbury" : Shawbury,
-                     @"Sheffield" : Sheffield,
-                     @"Southampton" : Southampton,
-                     @"Stornoway Airport" : StornowayAirport,
-                     @"Sutton Bonington" : SuttonBonington,
-                     @"Tiree" : Tiree,
-                     @"Valley" : Valley,
-                     @"Waddington" : Waddington,
-                     @"Whitby" : Whitby,
-                     @"Wick Airport" : WickAirport,
-                     @"Yeovilton" : Yeovilton};
+    NSDictionary *stationsList = @{@"Aberporth" : @"aberporthdata",
+                                   @"Armagh" : @"armaghdata",
+                                   @"Ballypatrick Forest" : @"ballypatrickdata",
+                                   @"Bradford" : @"bradforddata",
+                                   @"Braemar" : @"braemardata",
+                                   @"Camborne" : @"cambornedata",
+                                   @"Cambridge NIAB" : @"cambridgedata",
+                                   @"Bute Park" : @"cardiffdata",
+                                   @"Chivenor" : @"chivenordata",
+                                   @"Cwmystwyth" : @"cwmystwythdata",
+                                   @"Dunstaffnage" : @"dunstaffnagedata",
+                                   @"Durham" : @"durhamdata",
+                                   @"Eastbourne" : @"eastbournedata",
+                                   @"Eskdalemuir" : @"eskdalemuirdata",
+                                   @"Heathrow" : @"heathrowdata",
+                                   @"Hurn" : @"hurndata",
+                                   @"Lerwick" : @"lerwickdata",
+                                   @"Leuchars" : @"leucharsdata",
+                                   @"Lowestoft" : @"lowestoftdata",
+                                   @"Manston" : @"manstondata",
+                                   @"Nairn" : @"nairndata",
+                                   @"Newton Rigg" : @"newtonriggdata",
+                                   @"Oxford" : @"oxforddata",
+                                   @"Paisley" : @"paisleydata",
+                                   @"Ringway" : @"ringwaydata",
+                                   @"Ross-on-Wye" : @"rossonwyedata",
+                                   @"Shawbury" : @"shawburydata",
+                                   @"Sheffield" : @"sheffielddata",
+                                   @"Southampton" : @"southamptondata",
+                                   @"Stornoway Airport" : @"stornowaydata",
+                                   @"Sutton Bonington" : @"suttonboningtondata",
+                                   @"Tiree" : @"tireedata",
+                                   @"Valley" : @"valleydata",
+                                   @"Waddington" : @"waddingtondata",
+                                   @"Whitby" : @"whitbydata",
+                                   @"Wick Airport" : @"wickairportdata",
+                                   @"Yeovilton" : @"yeoviltondata"};
     return stationsList;
 }
 

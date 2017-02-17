@@ -18,8 +18,8 @@ static NSString *const kCellIdentifier = @"MonthData";
 @property (strong, nonatomic) NSArray *weatherDataArray;
 @property (weak, nonatomic) IBOutlet UITableView *weatherTableView;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
-@property NSArray *pickerData;
-@property NSDictionary *dict;
+@property (strong, nonatomic) NSArray *pickerData;
+@property (strong, nonatomic) NSDictionary *dict;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
@@ -43,7 +43,6 @@ static NSString *const kCellIdentifier = @"MonthData";
     self.backgroundImageView.image = [UIImage imageNamed:@"backVarTwo"];
     self.headerView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
     //hide elements while no data
-//    [self.headerView setHidden:YES];
     [self.weatherTableView setHidden:YES];
     //show indicator while data loading and parsing and setup
     self.activityIndicator.hidesWhenStopped = YES;
@@ -54,17 +53,24 @@ static NSString *const kCellIdentifier = @"MonthData";
     //get list of stations (returns NSDictionary)
     self.dict = [[WTWeatherAPI sharedInstance] getListOfStations];
     //add all keys to an array and sort it alphabetically
-    self.pickerData = [[self.dict allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    NSArray *tempAllKeys = [self.dict allKeys];
+    self.pickerData = [tempAllKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     //catch message that data loaded and start operations with it
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(createObjectsWithData)
                                                  name:@"WTDataReady"
                                                object:nil];
+    //Request timed out
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(enableActionsWStopIndicator)
+                                                 name:@"RequestTimedOut"
+                                               object:nil];
 }
 #pragma mark - Private
 - (void)createObjectsWithData {
     NSMutableArray *mutableArrayWithWeatherData = [NSMutableArray new];
-    for (NSDictionary *weatherList in [[WTWeatherAPI sharedInstance] weatherStationData]) {
+    NSArray *arrayWithAllData = [[WTWeatherAPI sharedInstance] weatherStationData];
+    for (NSDictionary *weatherList in arrayWithAllData) {
         
         WTModel *year = [[WTModel alloc]initWithYear:weatherList[@"Year"]
                                                month:weatherList[@"Month"]
@@ -191,7 +197,9 @@ static NSString *const kCellIdentifier = @"MonthData";
     NSString *searchString = self.searchController.searchBar.text;
     NSMutableArray *tempArr = [NSMutableArray new];
     for (WTModel *element in self.weatherDataArray) {
-        [element.year isEqualToString:searchString] ? [tempArr addObject:element] : @"no";
+        if ([element.year isEqualToString:searchString]) {
+            [tempArr addObject:element];
+        }
     }
     self.filteredArray = tempArr;
     // Reload the tableview.
@@ -201,6 +209,11 @@ static NSString *const kCellIdentifier = @"MonthData";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     // Calculation number of rows in our tableView
     return (tableView.frame.size.height / 13);
+}
+
+- (void)enableActionsWStopIndicator {
+    [self.activityIndicator stopAnimating];
+    [self.pickerView setUserInteractionEnabled:YES];
 }
 
 @end

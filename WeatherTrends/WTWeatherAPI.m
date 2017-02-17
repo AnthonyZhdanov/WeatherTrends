@@ -44,7 +44,7 @@
     }];
 }
 
-- (NSMutableArray *)weatherStationData {
+- (NSArray *)weatherStationData {
 
     return [localData weatherStationData];
 }

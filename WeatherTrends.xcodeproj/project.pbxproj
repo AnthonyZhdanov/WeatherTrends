@@ -18,7 +18,6 @@
 		C655E7F51E4E05A40084154B /* WTWeatherAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C655E7F41E4E05A40084154B /* WTWeatherAPI.m */; };
 		C655E7F81E4E05C40084154B /* WTWebServices.m in Sources */ = {isa = PBXBuildFile; fileRef = C655E7F71E4E05C40084154B /* WTWebServices.m */; };
 		C655E7FB1E4E06A40084154B /* WTLocalData.m in Sources */ = {isa = PBXBuildFile; fileRef = C655E7FA1E4E06A40084154B /* WTLocalData.m */; };
-		C655E7FF1E51BE7B0084154B /* WTConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C655E7FE1E51BE7B0084154B /* WTConstants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,8 +41,6 @@
 		C655E7F71E4E05C40084154B /* WTWebServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTWebServices.m; sourceTree = "<group>"; };
 		C655E7F91E4E06A40084154B /* WTLocalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTLocalData.h; sourceTree = "<group>"; };
 		C655E7FA1E4E06A40084154B /* WTLocalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTLocalData.m; sourceTree = "<group>"; };
-		C655E7FD1E51BE7B0084154B /* WTConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTConstants.h; sourceTree = "<group>"; };
-		C655E7FE1E51BE7B0084154B /* WTConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTConstants.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,8 +108,6 @@
 				C655E7DC1E4DFF4C0084154B /* WTAppDelegate.h */,
 				C655E7DD1E4DFF4C0084154B /* WTAppDelegate.m */,
 				C655E7DA1E4DFF4C0084154B /* main.m */,
-				C655E7FD1E51BE7B0084154B /* WTConstants.h */,
-				C655E7FE1E51BE7B0084154B /* WTConstants.m */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -217,7 +212,6 @@
 				C6075DE41E53B6A500DD5161 /* WTTableViewCell.m in Sources */,
 				C655E7E11E4DFF4C0084154B /* WTViewController.m in Sources */,
 				C655E7F81E4E05C40084154B /* WTWebServices.m in Sources */,
-				C655E7FF1E51BE7B0084154B /* WTConstants.m in Sources */,
 				C655E7FB1E4E06A40084154B /* WTLocalData.m in Sources */,
 				C655E7DE1E4DFF4C0084154B /* WTAppDelegate.m in Sources */,
 				C655E7F51E4E05A40084154B /* WTWeatherAPI.m in Sources */,

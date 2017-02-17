@@ -12,7 +12,7 @@
 
 + (WTWeatherAPI *)sharedInstance;
 - (void)getWeatherByPath:(NSString *)meteorologicalStationURL;
-- (NSMutableArray *)weatherStationData;
+- (NSArray *)weatherStationData;
 - (NSDictionary *)getListOfStations;
 
 @end

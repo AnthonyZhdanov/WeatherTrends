@@ -18,7 +18,14 @@
                                                                   NSURLResponse * _Nullable response,
                                                                   NSError * _Nullable error) {
         if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
+            NSLog(@"dataTaskError %@", [error localizedDescription]);
+            if ([[error localizedDescription] isEqualToString:@"The request timed out."]) {
+                //send message that data not loaded
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"RequestTimedOut"
+                                                                    object:self
+                                                                  userInfo:nil];
+            }
+            
         }
         else {
             completionBlock(data);
