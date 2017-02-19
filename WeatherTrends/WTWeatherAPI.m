@@ -40,17 +40,21 @@
 - (void)getWeatherByPath:(NSString *)meteorologicalStationURL {
     
     [webServices getWeatherByPath:meteorologicalStationURL withCompletionBlock:^(NSData *weatherData) {
+        //when data received (completion block) parse it:
         [localData parseData:weatherData];
     }];
 }
 
 - (NSArray *)weatherStationData {
-
-    return [localData weatherStationData];
+    NSArray *parsedData = [localData weatherStationData];
+    //returns parsed data
+    return parsedData;
 }
 
 - (NSDictionary *)getListOfStations {
-    return [localData getListOfStations];
+    NSDictionary *allStations = [localData getListOfStations];
+    //returns list of all weather stations
+    return allStations;
 }
 
 @end

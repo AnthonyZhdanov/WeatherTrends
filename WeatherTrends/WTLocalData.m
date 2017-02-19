@@ -8,6 +8,8 @@
 
 #import "WTLocalData.h"
 
+static int const kCountOfMonthDataParamaters = 8;
+
 @interface WTLocalData () {
     NSMutableArray *stationWeatherData;
     NSString *modifiedString;
@@ -85,8 +87,7 @@
 
 - (NSString *)deleteSpacesFromString:(NSString *)incomingString {
     //I know that data from station separated by "space" symbols and each time count of that symbols is different.
-    //so the code below leaves only one "space" symbol betwen data
-    //but it's necessary to check is thete such symbols in our string
+    //so the code below leaves only one "space" symbol betwen words in text
     modifiedString = incomingString;
     NSString *twinSpace = @"  ";
     NSRange range;
@@ -101,14 +102,15 @@
     //parsing incoming string to an array of elements separated by single space symbol
     NSArray *listArray = [incomingString componentsSeparatedByString:@" "];
     NSMutableDictionary *yearData = [NSMutableDictionary new];
-    
+    //zero element will be " " and .txt data from source sometimes miss last elements for monthes
     yearData[@"Year"] = listArray[1];
     yearData[@"Month"] = listArray[2];
     yearData[@"tMaxC"] = listArray[3];
     yearData[@"tMinC"] = listArray[4];
     yearData[@"AfDays"] = listArray[5];
     yearData[@"RainMm"] = listArray[6];
-    if (listArray.count < 8) {
+    //if last element "sun hours" missed from list
+    if (listArray.count < kCountOfMonthDataParamaters) {
         yearData[@"SunHours"] = @"---";
     }
     else {

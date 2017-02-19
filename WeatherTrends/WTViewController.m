@@ -12,6 +12,7 @@
 #import "WTTableViewCell.h"
 
 static NSString *const kCellIdentifier = @"MonthData";
+static float const kTimeintervalForDoubleCkick = 0.3;
 
 @interface WTViewController ()
 
@@ -26,6 +27,8 @@ static NSString *const kCellIdentifier = @"MonthData";
 @property UISearchController *searchController;
 @property (strong, nonatomic) NSArray *filteredArray;
 @property BOOL shouldShowSearchResults;
+@property NSTimeInterval lastClick;
+@property NSIndexPath *lastIndexPath;
 
 @end
 
@@ -88,7 +91,7 @@ static NSString *const kCellIdentifier = @"MonthData";
         [self.weatherTableView setHidden:NO];
         [self.activityIndicator stopAnimating];
         if (![self.searchController.searchBar.text isEqualToString:@""]) {
-        //if there where search before updates serch info
+        //this code allows to searchbar update the list by chosen year if there was search request before
             [self.searchController.searchBar becomeFirstResponder];
         }
         [self.pickerView setUserInteractionEnabled:YES];
@@ -107,7 +110,7 @@ static NSString *const kCellIdentifier = @"MonthData";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WTTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
     WTModel *weatherData = [WTModel new];
-    
+
     if (self.shouldShowSearchResults) {
         weatherData = self.filteredArray[indexPath.row];
 //        NSLog(@"FilteredData%@", self.filteredArray[indexPath.row]);
@@ -116,7 +119,6 @@ static NSString *const kCellIdentifier = @"MonthData";
         weatherData = self.weatherDataArray[indexPath.row];
 //        NSLog(@"AllData%@", weatherData);
     }
-//    WTModel *weatherData = self.weatherDataArray[indexPath.row];
     
     if ([weatherData.month isEqualToString:@"Jan"]) {
 //        cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 10000);
@@ -134,8 +136,20 @@ static NSString *const kCellIdentifier = @"MonthData";
     cell.showSunLabel.text = weatherData.sun;
     return cell;
 }
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSTimeInterval now = [[[NSDate alloc] init] timeIntervalSince1970];
+    //return list of years back to the top (to the searchBar) when any cell doubleclicked
+    if ((now - self.lastClick < kTimeintervalForDoubleCkick) && [indexPath isEqual:self.lastIndexPath]) {
+        NSIndexPath* top = [NSIndexPath indexPathForRow:NSNotFound inSection:0];
+        [self.weatherTableView scrollToRowAtIndexPath:top atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    }
+    self.lastClick = now;
+    self.lastIndexPath = indexPath;
+}
+
 #pragma mark - UIPickerViewDataSource
-// The number of columns of data
+// The columns of data number
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
@@ -166,11 +180,12 @@ static NSString *const kCellIdentifier = @"MonthData";
 - (void)configureSearchController {
     // Initialize and perform a minimum configuration to the search controller.
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    self.searchController.searchBar.barTintColor = [UIColor darkGrayColor];
-    self.searchController.searchBar.alpha = 0.5;
+//    self.searchController.searchBar.alpha = 0.3;
+    self.searchController.searchBar.barTintColor = [UIColor colorWithWhite:0.5 alpha:0.1];
+    self.searchController.searchBar.backgroundColor = [UIColor clearColor];
     [self.searchController.searchBar setValue:@"Full list" forKey:@"_cancelButtonText"];
     self.searchController.searchResultsUpdater = self;
-    self.searchController.dimsBackgroundDuringPresentation = false;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.placeholder = @"Search by year";
     self.searchController.searchBar.delegate = self;
     [self.searchController.searchBar sizeToFit];

@@ -28,6 +28,7 @@
             
         }
         else {
+            //everything is fine so I can send completion block with loaded data
             completionBlock(data);
         }
     }] resume];
